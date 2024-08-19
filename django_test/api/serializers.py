@@ -37,7 +37,7 @@ class BaseManyToManySerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        for field_name, _ in self.get_many_to_many_fields():
+        for field_name, field_class in self.get_many_to_many_fields():
             if hasattr(instance, field_name):
                 representation[field_name] = [item.id for item in getattr(instance, field_name).all()]
         return representation
